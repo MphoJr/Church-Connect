@@ -29,6 +29,15 @@ function Attendance() {
 
     alert("Attendance recorded successfully");
   };
+  const Sidebar = ({ sidebarOpen }) => {
+    return (
+      <div
+        className={`sidebar ${sidebarOpen ? "sidebar-open" : "sidebar-closed"}`}
+      >
+        {/* links */}
+      </div>
+    );
+  };
 
   return (
     <AdminLayout>

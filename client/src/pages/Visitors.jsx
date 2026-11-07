@@ -1,5 +1,3 @@
-// src/pages/Visitors.jsx
-
 import { useState } from "react";
 import AdminLayout from "../layouts/AdminLayout";
 
@@ -10,7 +8,8 @@ function Visitors() {
     fullName: "",
     phone: "",
     service: "",
-    visitDate: "",
+    firstVisitDate: "",
+    invitedBy: "",
   });
 
   const handleChange = (e) => {
@@ -34,16 +33,21 @@ function Visitors() {
       fullName: "",
       phone: "",
       service: "",
-      visitDate: "",
+      firstVisitDate: "",
+      invitedBy: "",
     });
+  };
+
+  const handleDelete = (id) => {
+    setVisitors(visitors.filter((visitor) => visitor.id !== id));
   };
 
   return (
     <AdminLayout>
-      <div className="members-container">
+      <div className="visitors-container">
         <h1>Visitors</h1>
 
-        <form className="member-form" onSubmit={handleSubmit}>
+        <form className="visitor-form" onSubmit={handleSubmit}>
           <input
             type="text"
             name="fullName"
@@ -75,8 +79,16 @@ function Visitors() {
 
           <input
             type="date"
-            name="visitDate"
-            value={formData.visitDate}
+            name="firstVisitDate"
+            value={formData.firstVisitDate}
+            onChange={handleChange}
+          />
+
+          <input
+            type="text"
+            name="invitedBy"
+            placeholder="Invited By"
+            value={formData.invitedBy}
             onChange={handleChange}
           />
 
@@ -90,18 +102,36 @@ function Visitors() {
               <th>Phone</th>
               <th>Service</th>
               <th>Visit Date</th>
+              <th>Invited By</th>
+              <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {visitors.map((visitor) => (
-              <tr key={visitor.id}>
-                <td>{visitor.fullName}</td>
-                <td>{visitor.phone}</td>
-                <td>{visitor.service}</td>
-                <td>{visitor.visitDate}</td>
+            {visitors.length === 0 ? (
+              <tr>
+                <td colSpan="6">No visitors recorded</td>
               </tr>
-            ))}
+            ) : (
+              visitors.map((visitor) => (
+                <tr key={visitor.id}>
+                  <td>{visitor.fullName}</td>
+                  <td>{visitor.phone}</td>
+                  <td>{visitor.service}</td>
+                  <td>{visitor.firstVisitDate}</td>
+                  <td>{visitor.invitedBy}</td>
+
+                  <td>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(visitor.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

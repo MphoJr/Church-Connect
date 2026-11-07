@@ -1,9 +1,15 @@
-const Topbar = () => {
+import { FaBars } from "react-icons/fa";
+
+const Topbar = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <div className="topbar">
-      <h3>Dashboard</h3>
+      <button className="menu-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
+        <FaBars />
+      </button>
 
-      <div>Welcome, Admin</div>
+      <h3>ChurchConnect</h3>
+
+      <div>Welcome Admin</div>
     </div>
   );
 };

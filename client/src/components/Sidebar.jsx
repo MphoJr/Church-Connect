@@ -1,54 +1,75 @@
+import { NavLink } from "react-router-dom";
 import {
   FaHome,
   FaUsers,
   FaClipboardCheck,
+  FaUserFriends,
   FaCalendarAlt,
   FaChartBar,
-  FaUserFriends,
+  FaCog,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ sidebarOpen }) => {
   return (
-    <div className="sidebar">
-      <h2>ChurchConnect</h2>
-      <ul>
-        <li>
-          <Link to="/dashboard">
-            <FaHome /> Dashboard
-          </Link>
-        </li>
+    <div
+      className={`sidebar ${sidebarOpen ? "sidebar-open" : "sidebar-closed"}`}
+    >
+      <div className="sidebar-header">
+        <h2>{sidebarOpen ? "ChurchConnect" : "CC"}</h2>
+      </div>
 
-        <li>
-          <Link to="/members">
-            <FaUsers /> Members
-          </Link>
-        </li>
+      <nav>
+        <ul>
+          <li>
+            <NavLink to="/dashboard">
+              <FaHome />
+              {sidebarOpen && <span>Dashboard</span>}
+            </NavLink>
+          </li>
 
-        <li>
-          <Link to="/attendance">
-            <FaClipboardCheck /> Attendance
-          </Link>
-        </li>
+          <li>
+            <NavLink to="/members">
+              <FaUsers />
+              {sidebarOpen && <span>Members</span>}
+            </NavLink>
+          </li>
 
-        <li>
-          <Link to="/events">
-            <FaCalendarAlt /> Events
-          </Link>
-        </li>
+          <li>
+            <NavLink to="/attendance">
+              <FaClipboardCheck />
+              {sidebarOpen && <span>Attendance</span>}
+            </NavLink>
+          </li>
 
-        <li>
-          <Link to="/reports">
-            <FaChartBar /> Reports
-          </Link>
-        </li>
-        <li>
-          <Link to="/visitors">
-            <FaUserFriends />
-            Visitors
-          </Link>
-        </li>
-      </ul>{" "}
+          <li>
+            <NavLink to="/visitors">
+              <FaUserFriends />
+              {sidebarOpen && <span>Visitors</span>}
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/events">
+              <FaCalendarAlt />
+              {sidebarOpen && <span>Events</span>}
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/reports">
+              <FaChartBar />
+              {sidebarOpen && <span>Reports</span>}
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/settings">
+              <FaCog />
+              {sidebarOpen && <span>Settings</span>}
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };
