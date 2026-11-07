@@ -1,5 +1,6 @@
 import AdminLayout from "../layouts/AdminLayout";
 import StatCard from "../components/StatCard";
+import AttendanceChart from "../components/AttendanceChart";
 
 const Dashboard = () => {
   return (
@@ -31,6 +32,12 @@ const Dashboard = () => {
           <p>Prayer Night</p>
 
           <p>Community Outreach</p>
+        </div>
+
+        <div className="panel">
+          <h3>Attendance Trend</h3>
+
+          <AttendanceChart />
         </div>
       </div>
     </AdminLayout>
