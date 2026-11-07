@@ -34,9 +34,8 @@ const Dashboard = () => {
           <p>Community Outreach</p>
         </div>
 
-        <div className="panel">
+        <div className="chart-panel">
           <h3>Attendance Trend</h3>
-
           <AttendanceChart />
         </div>
       </div>
