@@ -79,3 +79,71 @@
   margin: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+.members-container {
+  padding: 20px;
+}
+
+.member-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.member-form input,
+.member-form select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-width: 180px;
+}
+
+.member-form button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.member-form button:hover {
+  background: #1d4ed8;
+}
+
+.member-table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.member-table th {
+  background: #1e293b;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+.member-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.member-table tr:hover {
+  background: #f8fafc;
+}
+
+.delete-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
+}
