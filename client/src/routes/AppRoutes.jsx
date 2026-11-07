@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-
 import Dashboard from "../pages/Dashboard";
 import Members from "../pages/Members";
 import Attendance from "../pages/Attendance";
