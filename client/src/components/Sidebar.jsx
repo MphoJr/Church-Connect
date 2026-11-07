@@ -5,29 +5,43 @@ import {
   FaCalendarAlt,
   FaChartBar,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
       <h2>ChurchConnect</h2>
-
       <ul>
         <li>
-          <FaHome /> Dashboard
+          <Link to="/dashboard">
+            <FaHome /> Dashboard
+          </Link>
         </li>
+
         <li>
-          <FaUsers /> Members
+          <Link to="/members">
+            <FaUsers /> Members
+          </Link>
         </li>
+
         <li>
-          <FaClipboardCheck /> Attendance
+          <Link to="/attendance">
+            <FaClipboardCheck /> Attendance
+          </Link>
         </li>
+
         <li>
-          <FaCalendarAlt /> Events
+          <Link to="/events">
+            <FaCalendarAlt /> Events
+          </Link>
         </li>
+
         <li>
-          <FaChartBar /> Reports
+          <Link to="/reports">
+            <FaChartBar /> Reports
+          </Link>
         </li>
-      </ul>
+      </ul>{" "}
     </div>
   );
 };
