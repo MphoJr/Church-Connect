@@ -147,3 +147,56 @@
 .delete-btn:hover {
   background: #b91c1c;
 }
+.attendance-container {
+  padding: 20px;
+}
+
+.attendance-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.attendance-form select,
+.attendance-form input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.attendance-table {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.attendance-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.attendance-table th {
+  background: #1e293b;
+  color: white;
+  text-align: left;
+  padding: 12px;
+}
+
+.attendance-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.save-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #15803d;
+}

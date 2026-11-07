@@ -4,6 +4,7 @@ import {
   FaClipboardCheck,
   FaCalendarAlt,
   FaChartBar,
+  FaUserFriends,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -39,6 +40,12 @@ const Sidebar = () => {
         <li>
           <Link to="/reports">
             <FaChartBar /> Reports
+          </Link>
+        </li>
+        <li>
+          <Link to="/visitors">
+            <FaUserFriends />
+            Visitors
           </Link>
         </li>
       </ul>{" "}
