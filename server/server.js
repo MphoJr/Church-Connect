@@ -14,6 +14,10 @@ app.get("/api", (req, res) => {
   });
 });
 
+const memberRoutes = require("./src/routes/memberRoutes");
+
+app.use("/api/members", memberRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
