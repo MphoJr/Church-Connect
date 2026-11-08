@@ -1,8 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminLayout from "../layouts/AdminLayout";
+
+import {
+  getEvents,
+  createEvent,
+  updateEvent,
+  deleteEvent,
+} from "../services/eventService";
 
 function Events() {
   const [events, setEvents] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [editingId, setEditingId] = useState(null);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -11,6 +20,19 @@ function Events() {
     description: "",
   });
 
+  useEffect(() => {
+    loadEvents();
+  }, []);
+
+  const loadEvents = async () => {
+    try {
+      const res = await getEvents();
+      setEvents(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -18,32 +40,70 @@ function Events() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const newEvent = {
-      id: Date.now(),
-      ...formData,
-    };
-
-    setEvents([...events, newEvent]);
-
+  const resetForm = () => {
     setFormData({
       title: "",
       venue: "",
       eventDate: "",
       description: "",
     });
+
+    setEditingId(null);
   };
 
-  const handleDelete = (id) => {
-    setEvents(events.filter((event) => event.id !== id));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (editingId) {
+        await updateEvent(editingId, formData);
+      } else {
+        await createEvent(formData);
+      }
+
+      resetForm();
+      loadEvents();
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  const handleEdit = (event) => {
+    setEditingId(event.id);
+
+    setFormData({
+      title: event.title || "",
+      venue: event.venue || "",
+      eventDate: event.eventDate || "",
+      description: event.description || "",
+    });
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteEvent(id);
+      loadEvents();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const filteredEvents = events.filter((event) =>
+    event.title?.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
   return (
     <AdminLayout>
       <div className="events-container">
         <h1>Events Management</h1>
+
+        <input
+          type="text"
+          placeholder="Search events..."
+          className="search-input"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
 
         <form className="event-form" onSubmit={handleSubmit}>
           <input
@@ -72,12 +132,20 @@ function Events() {
 
           <textarea
             name="description"
-            placeholder="Event Description"
+            placeholder="Description"
             value={formData.description}
             onChange={handleChange}
           />
 
-          <button type="submit">Create Event</button>
+          <button type="submit">
+            {editingId ? "Update Event" : "Create Event"}
+          </button>
+
+          {editingId && (
+            <button type="button" onClick={resetForm}>
+              Cancel
+            </button>
+          )}
         </form>
 
         <table className="member-table">
@@ -92,12 +160,12 @@ function Events() {
           </thead>
 
           <tbody>
-            {events.length === 0 ? (
+            {filteredEvents.length === 0 ? (
               <tr>
-                <td colSpan="5">No events created</td>
+                <td colSpan="5">No events found</td>
               </tr>
             ) : (
-              events.map((event) => (
+              filteredEvents.map((event) => (
                 <tr key={event.id}>
                   <td>{event.title}</td>
                   <td>{event.venue}</td>
@@ -105,6 +173,13 @@ function Events() {
                   <td>{event.description}</td>
 
                   <td>
+                    <button
+                      className="edit-btn"
+                      onClick={() => handleEdit(event)}
+                    >
+                      Edit
+                    </button>
+
                     <button
                       className="delete-btn"
                       onClick={() => handleDelete(event.id)}
