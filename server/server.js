@@ -23,3 +23,13 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+const sequelize = require("./src/config/db");
+const User = require("./src/models/User");
+
+sequelize
+  .sync({ alter: true })
+  .then(() => {
+    console.log("Database Connected");
+  })
+  .catch(console.error);
