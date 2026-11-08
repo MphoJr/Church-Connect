@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import AdminLayout from "../layouts/AdminLayout";
+
 import {
   getMembers,
   createMember,
   deleteMember,
+  updateMember,
 } from "../services/memberService";
 
 function Members() {
   const [members, setMembers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [editingId, setEditingId] = useState(null);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -20,8 +24,8 @@ function Members() {
 
   const loadMembers = async () => {
     try {
-      const res = await getMembers();
-      setMembers(res.data);
+      const response = await getMembers();
+      setMembers(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -38,25 +42,47 @@ function Members() {
     });
   };
 
+  const resetForm = () => {
+    setFormData({
+      fullName: "",
+      phone: "",
+      email: "",
+      ministry: "",
+      status: "Active",
+      joinDate: "",
+    });
+
+    setEditingId(null);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await createMember(formData);
+      if (editingId) {
+        await updateMember(editingId, formData);
+      } else {
+        await createMember(formData);
+      }
 
-      setFormData({
-        fullName: "",
-        phone: "",
-        email: "",
-        ministry: "",
-        status: "Active",
-        joinDate: "",
-      });
-
+      resetForm();
       loadMembers();
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleEdit = (member) => {
+    setEditingId(member.id);
+
+    setFormData({
+      fullName: member.fullName || "",
+      phone: member.phone || "",
+      email: member.email || "",
+      ministry: member.ministry || "",
+      status: member.status || "Active",
+      joinDate: member.joinDate || "",
+    });
   };
 
   const handleDelete = async (id) => {
@@ -68,10 +94,22 @@ function Members() {
     }
   };
 
+  const filteredMembers = members.filter((member) =>
+    member.fullName?.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
   return (
     <AdminLayout>
       <div className="members-container">
         <h1>Members</h1>
+
+        <input
+          type="text"
+          placeholder="Search members..."
+          className="search-input"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
 
         <form className="member-form" onSubmit={handleSubmit}>
           <input
@@ -105,16 +143,23 @@ function Members() {
             onChange={handleChange}
           >
             <option value="">Select Ministry</option>
+
             <option value="Youth">Youth</option>
+
             <option value="Men">Men</option>
+
             <option value="Women">Women</option>
+
             <option value="Worship">Worship</option>
+
             <option value="Media">Media</option>
+
             <option value="Children">Children</option>
           </select>
 
           <select name="status" value={formData.status} onChange={handleChange}>
             <option value="Active">Active</option>
+
             <option value="Inactive">Inactive</option>
           </select>
 
@@ -125,7 +170,15 @@ function Members() {
             onChange={handleChange}
           />
 
-          <button type="submit">Add Member</button>
+          <button type="submit">
+            {editingId ? "Update Member" : "Add Member"}
+          </button>
+
+          {editingId && (
+            <button type="button" onClick={resetForm}>
+              Cancel
+            </button>
+          )}
         </form>
 
         <table className="member-table">
@@ -142,12 +195,12 @@ function Members() {
           </thead>
 
           <tbody>
-            {members.length === 0 ? (
+            {filteredMembers.length === 0 ? (
               <tr>
                 <td colSpan="7">No members found</td>
               </tr>
             ) : (
-              members.map((member) => (
+              filteredMembers.map((member) => (
                 <tr key={member.id}>
                   <td>{member.fullName}</td>
                   <td>{member.phone}</td>
@@ -157,6 +210,13 @@ function Members() {
                   <td>{member.joinDate}</td>
 
                   <td>
+                    <button
+                      className="edit-btn"
+                      onClick={() => handleEdit(member)}
+                    >
+                      Edit
+                    </button>
+
                     <button
                       className="delete-btn"
                       onClick={() => handleDelete(member.id)}

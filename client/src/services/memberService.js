@@ -11,3 +11,6 @@ export const createMember = (memberData) => {
 export const deleteMember = (id) => {
   return API.delete(`/members/${id}`);
 };
+export const updateMember = (id, memberData) => {
+  return API.put(`/members/${id}`, memberData);
+};

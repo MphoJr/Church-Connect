@@ -1,34 +1,77 @@
-const members = [];
+const Member = require("../models/Member");
 
-exports.getMembers = (req, res) => {
-  res.json(members);
-};
+exports.getMembers = async (req, res) => {
+  try {
+    const members = await Member.findAll({
+      order: [["createdAt", "DESC"]],
+    });
 
-exports.createMember = (req, res) => {
-  const member = {
-    id: Date.now(),
-    ...req.body,
-  };
+    res.json(members);
+  } catch (error) {
+    console.log(error);
 
-  members.push(member);
-
-  res.status(201).json(member);
-};
-
-exports.deleteMember = (req, res) => {
-  const id = parseInt(req.params.id);
-
-  const index = members.findIndex((member) => member.id === id);
-
-  if (index === -1) {
-    return res.status(404).json({
-      message: "Member not found",
+    res.status(500).json({
+      message: "Failed to fetch members",
     });
   }
+};
 
-  members.splice(index, 1);
+exports.createMember = async (req, res) => {
+  try {
+    const member = await Member.create(req.body);
 
-  res.json({
-    message: "Member deleted",
-  });
+    res.status(201).json(member);
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Failed to create member",
+    });
+  }
+};
+
+exports.deleteMember = async (req, res) => {
+  try {
+    const member = await Member.findByPk(req.params.id);
+
+    if (!member) {
+      return res.status(404).json({
+        message: "Member not found",
+      });
+    }
+
+    await member.destroy();
+
+    res.json({
+      message: "Member deleted",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Failed to delete member",
+    });
+  }
+};
+
+exports.updateMember = async (req, res) => {
+  try {
+    const member = await Member.findByPk(req.params.id);
+
+    if (!member) {
+      return res.status(404).json({
+        message: "Member not found",
+      });
+    }
+
+    await member.update(req.body);
+
+    res.json(member);
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Failed to update member",
+    });
+  }
 };
