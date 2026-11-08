@@ -25,6 +25,9 @@ const attendanceRoutes = require("./src/routes/attendanceRoutes");
 
 app.use("/api/attendance", attendanceRoutes);
 
+const visitorRoutes = require("./src/routes/visitorRoutes");
+app.use("/api/visitors", visitorRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
