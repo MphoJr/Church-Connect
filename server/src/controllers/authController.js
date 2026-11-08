@@ -1,5 +1,6 @@
-const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const User = require("../models/User");
+const generateToken = require("../utils/generateToken");
 
 exports.register = async (req, res) => {
   try {
@@ -11,7 +12,7 @@ exports.register = async (req, res) => {
 
     if (existingUser) {
       return res.status(400).json({
-        message: "User already exists",
+        message: "Email already exists",
       });
     }
 
@@ -24,7 +25,42 @@ exports.register = async (req, res) => {
       role,
     });
 
-    res.status(201).json(user);
+    return res.status(201).json({
+      message: "Account created",
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+exports.login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({
+      where: { email },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid credentials",
+      });
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) {
+      return res.status(400).json({
+        message: "Invalid credentials",
+      });
+    }
+
+    const token = generateToken(user);
+
+    res.json({
+      token,
+      user,
+    });
   } catch (error) {
     console.error(error);
   }
