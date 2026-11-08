@@ -11,7 +11,7 @@ import Login from "../pages/Login";
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/members" element={<Members />} />
       <Route path="/visitors" element={<Visitors />} />
       <Route path="/attendance" element={<Attendance />} />
@@ -19,7 +19,7 @@ function AppRoutes() {
       <Route path="/reports" element={<Reports />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Login />} />
     </Routes>
   );
 }

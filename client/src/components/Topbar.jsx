@@ -5,8 +5,16 @@ const Topbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
     navigate("/");
   };
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const userName = user?.fullName || "Guest";
+
+  const role = user?.role || "User";
 
   return (
     <div className="topbar">
@@ -21,9 +29,9 @@ const Topbar = () => {
           <div className="avatar">M</div>
 
           <div className="user-info">
-            <span className="user-name">Mpho</span>
+            <span className="user-name">{userName}</span>
 
-            <span className="user-role">Admin</span>
+            <span className="user-role">{role}</span>
           </div>
         </div>
 
