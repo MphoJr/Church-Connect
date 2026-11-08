@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { loginUser } from "../services/authService";
 
 function Login() {
   const navigate = useNavigate();
@@ -16,10 +17,22 @@ function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    navigate("/dashboard");
+    try {
+      const response = await loginUser(formData);
+
+      localStorage.setItem("token", response.data.token);
+
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+
+      alert(error.response?.data?.message || "Login failed");
+    }
   };
 
   return (

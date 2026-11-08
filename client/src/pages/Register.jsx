@@ -1,5 +1,5 @@
 // src/pages/Register.jsx
-
+import { registerUser } from "../services/authService";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -20,12 +20,22 @@ function Register() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    try {
+      const response = await registerUser(formData);
 
-    navigate("/");
+      alert("Account created successfully!");
+
+      console.log(response.data);
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+
+      alert(error.response?.data?.message || "Registration failed");
+    }
   };
 
   return (
