@@ -7,15 +7,23 @@ import {
   FaCalendarAlt,
   FaChartBar,
   FaCog,
+  FaBars,
 } from "react-icons/fa";
 
-const Sidebar = ({ sidebarOpen }) => {
+const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <div
       className={`sidebar ${sidebarOpen ? "sidebar-open" : "sidebar-closed"}`}
     >
       <div className="sidebar-header">
-        <h2>{sidebarOpen ? "ChurchConnect" : "CC"}</h2>
+        {sidebarOpen && <h2>ChurchConnect</h2>}
+
+        <button
+          className="sidebar-toggle"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        >
+          <FaBars />
+        </button>
       </div>
 
       <nav>
