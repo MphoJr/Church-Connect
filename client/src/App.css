@@ -238,6 +238,22 @@
   padding: 12px;
   border-bottom: 1px solid #eee;
 }
+.attendance-container {
+  padding: 20px;
+}
+
+.attendance-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.attendance-form select,
+.attendance-form input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
 
 .save-btn {
   background: #16a34a;
