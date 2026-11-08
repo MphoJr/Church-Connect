@@ -25,11 +25,19 @@ app.listen(PORT, () => {
 });
 
 const sequelize = require("./src/config/db");
+
 const User = require("./src/models/User");
+const Member = require("./src/models/Member");
+const Visitor = require("./src/models/Visitor");
+const Event = require("./src/models/Event");
+const Attendance = require("./src/models/Attendance");
 
 sequelize
   .sync({ alter: true })
   .then(() => {
-    console.log("Database Connected");
+    console.log("✅ Database Connected");
+    console.log("✅ Tables Synced");
   })
-  .catch(console.error);
+  .catch((err) => {
+    console.error(err);
+  });
