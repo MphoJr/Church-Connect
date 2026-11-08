@@ -5,6 +5,14 @@ import AttendanceChart from "../components/AttendanceChart";
 const Dashboard = () => {
   return (
     <AdminLayout>
+      <div className="welcome-section">
+        <h1>Good Afternoon, Mpho 👋</h1>
+
+        <p>
+          Welcome back to ChurchConnect. Here's what's happening at your church
+          today.
+        </p>
+      </div>
       <div className="stats">
         <StatCard title="Total Members" value="256" color="#2563eb" />
 

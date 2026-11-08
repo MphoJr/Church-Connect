@@ -587,3 +587,14 @@
 .logout-btn:hover {
   background: #b91c1c;
 }
+.welcome-section {
+  padding: 20px;
+}
+
+.welcome-section h1 {
+  color: #1e293b;
+}
+
+.welcome-section p {
+  color: #64748b;
+}
