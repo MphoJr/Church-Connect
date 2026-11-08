@@ -6,6 +6,8 @@ import Attendance from "../pages/Attendance";
 import Events from "../pages/Events";
 import Reports from "../pages/Reports";
 import Profile from "../pages/Profile";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
 function AppRoutes() {
   return (
     <Routes>
@@ -16,6 +18,8 @@ function AppRoutes() {
       <Route path="/events" element={<Events />} />
       <Route path="/reports" element={<Reports />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
   );
 }

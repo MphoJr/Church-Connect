@@ -1,4 +1,3 @@
-import { useState } from "react";
 import AdminLayout from "../layouts/AdminLayout";
 
 function Profile() {
@@ -6,35 +5,40 @@ function Profile() {
     <AdminLayout>
       <div className="profile-container">
         <div className="profile-card">
-          <div className="profile-avatar">M</div>
-
-          <h1>Mpho</h1>
-
-          <p>Church Administrator</p>
-
-          <div className="profile-details">
-            <div>
-              <strong>Email:</strong>
-              <p>admin@churchconnect.com</p>
-            </div>
+          <div className="profile-top">
+            <div className="profile-avatar">M</div>
 
             <div>
-              <strong>Phone:</strong>
-              <p>071 234 5678</p>
-            </div>
-
-            <div>
-              <strong>Role:</strong>
+              <h2>Mpho Junior</h2>
               <p>Administrator</p>
-            </div>
-
-            <div>
-              <strong>Joined:</strong>
-              <p>06 Nov 2026</p>
             </div>
           </div>
 
-          <button className="profile-btn">Edit Profile</button>
+          <hr />
+
+          <div className="profile-details">
+            <div>
+              <label>Email</label>
+              <input type="email" value="admin@churchconnect.com" readOnly />
+            </div>
+
+            <div>
+              <label>Phone</label>
+              <input type="text" value="0712345678" />
+            </div>
+
+            <div>
+              <label>Role</label>
+              <input type="text" value="Administrator" readOnly />
+            </div>
+
+            <div>
+              <label>Church</label>
+              <input type="text" value="ChurchConnect Demo Church" />
+            </div>
+          </div>
+
+          <button className="profile-btn">Save Changes</button>
         </div>
       </div>
     </AdminLayout>
