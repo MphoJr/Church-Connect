@@ -29,7 +29,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       <nav>
         <ul>
           <li>
-            <NavLink to="/">
+            <NavLink to="/dashboard">
               <FaHome />
               {sidebarOpen && <span>Dashboard</span>}
             </NavLink>
