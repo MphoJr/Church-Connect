@@ -6,7 +6,7 @@ import {
   FaUserFriends,
   FaCalendarAlt,
   FaChartBar,
-  FaCog,
+  FaUserCircle,
   FaBars,
 } from "react-icons/fa";
 
@@ -29,7 +29,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       <nav>
         <ul>
           <li>
-            <NavLink to="/dashboard">
+            <NavLink to="/">
               <FaHome />
               {sidebarOpen && <span>Dashboard</span>}
             </NavLink>
@@ -71,9 +71,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           </li>
 
           <li>
-            <NavLink to="/settings">
-              <FaCog />
-              {sidebarOpen && <span>Settings</span>}
+            <NavLink to="/profile">
+              <FaUserCircle />
+              {sidebarOpen && <span>My Profile</span>}
             </NavLink>
           </li>
         </ul>
