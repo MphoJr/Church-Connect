@@ -29,6 +29,9 @@ app.use("/api/visitors", visitorRoutes);
 
 const eventRoutes = require("./src/routes/eventRoutes");
 app.use("/api/events", eventRoutes);
+
+const reportRoutes = require("./src/routes/reportRoutes");
+app.use("/api/reports", reportRoutes);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
