@@ -1,44 +1,145 @@
+import { useEffect, useState } from "react";
 import AdminLayout from "../layouts/AdminLayout";
+import { getProfile, updateProfile } from "../services/userService";
 
 function Profile() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    role: "",
+    profileImage: "",
+  });
+
+  useEffect(() => {
+    loadProfile();
+  }, []);
+
+  const loadProfile = async () => {
+    try {
+      const response = await getProfile(user.id);
+
+      setFormData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    setLoading(true);
+
+    const data = new FormData();
+
+    data.append("file", file);
+
+    data.append("upload_preset", "churchconnect_profiles");
+
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dprywfeee/image/upload",
+        {
+          method: "POST",
+          body: data,
+        },
+      );
+
+      const result = await response.json();
+
+      setFormData((prev) => ({
+        ...prev,
+        profileImage: result.secure_url,
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+
+    setLoading(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await updateProfile(user.id, formData);
+
+      localStorage.setItem("user", JSON.stringify(response.data));
+
+      alert("Profile updated successfully");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <AdminLayout>
       <div className="profile-container">
         <div className="profile-card">
-          <div className="profile-top">
-            <div className="profile-avatar">M</div>
+          <div className="profile-header">
+            {formData.profileImage ? (
+              <img
+                src={formData.profileImage}
+                alt="Profile"
+                className="profile-avatar"
+              />
+            ) : (
+              <div className="profile-avatar">
+                {formData.fullName?.charAt(0)?.toUpperCase()}
+              </div>
+            )}
 
-            <div>
-              <h2>Mpho Junior</h2>
-              <p>Administrator</p>
-            </div>
+            <h2>{formData.fullName}</h2>
+
+            <p>{formData.role}</p>
+
+            <input type="file" accept="image/*" onChange={handleImageUpload} />
+
+            {loading && <p>Uploading image...</p>}
           </div>
 
-          <hr />
+          <form className="profile-form" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Full Name"
+              value={formData.fullName}
+              onChange={handleChange}
+            />
 
-          <div className="profile-details">
-            <div>
-              <label>Email</label>
-              <input type="email" value="admin@churchconnect.com" readOnly />
-            </div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+            />
 
-            <div>
-              <label>Phone</label>
-              <input type="text" value="0712345678" />
-            </div>
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone"
+              value={formData.phone || ""}
+              onChange={handleChange}
+            />
 
-            <div>
-              <label>Role</label>
-              <input type="text" value="Administrator" readOnly />
-            </div>
+            <input type="text" value={formData.role} readOnly />
 
-            <div>
-              <label>Church</label>
-              <input type="text" value="ChurchConnect Demo Church" />
-            </div>
-          </div>
-
-          <button className="profile-btn">Save Changes</button>
+            <button type="submit">Save Changes</button>
+          </form>
         </div>
       </div>
     </AdminLayout>

@@ -25,15 +25,13 @@ const Topbar = () => {
           <FaBell />
         </button>
 
-        <div className="user-profile" onClick={() => navigate("/profile")}>
-          <div className="avatar">M</div>
-
-          <div className="user-info">
-            <span className="user-name">{userName}</span>
-
-            <span className="user-role">{role}</span>
+        {user?.profileImage ? (
+          <img src={user.profileImage} alt="Profile" className="avatar-img" />
+        ) : (
+          <div className="avatar">
+            {user?.fullName?.charAt(0)?.toUpperCase()}
           </div>
-        </div>
+        )}
 
         <button className="logout-btn" onClick={handleLogout}>
           Logout

@@ -32,6 +32,11 @@ app.use("/api/events", eventRoutes);
 
 const reportRoutes = require("./src/routes/reportRoutes");
 app.use("/api/reports", reportRoutes);
+
+const userRoutes = require("./src/routes/userRoutes");
+
+app.use("/api/users", userRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
