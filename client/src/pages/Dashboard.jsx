@@ -116,6 +116,7 @@ function Dashboard() {
                   <th>Event</th>
                   <th>Venue</th>
                   <th>Date</th>
+                  <th>Description</th>
                 </tr>
               </thead>
 
@@ -128,11 +129,16 @@ function Dashboard() {
                       <td>{event.venue}</td>
 
                       <td>{event.eventDate}</td>
+                      <td>
+                        {event.description?.length > 50
+                          ? `${event.description.substring(0, 50)}...`
+                          : event.description}
+                      </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="3">No events found</td>
+                    <td colSpan="4">No events found</td>
                   </tr>
                 )}
               </tbody>
