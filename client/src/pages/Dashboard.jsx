@@ -1,54 +1,147 @@
-import AdminLayout from "../layouts/AdminLayout";
-import StatCard from "../components/StatCard";
-import AttendanceChart from "../components/AttendanceChart";
+import { useEffect, useState } from "react";
 
-const Dashboard = () => {
+import {
+  FaUsers,
+  FaUserFriends,
+  FaCalendarAlt,
+  FaClipboardCheck,
+} from "react-icons/fa";
+
+import AdminLayout from "../layouts/AdminLayout";
+
+import { getDashboardStats } from "../services/dashboardService";
+
+function Dashboard() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const [stats, setStats] = useState({
+    totalMembers: 0,
+    totalVisitors: 0,
+    totalEvents: 0,
+    totalAttendance: 0,
+    recentEvents: [],
+  });
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadDashboard();
+  }, []);
+
+  const loadDashboard = async () => {
+    try {
+      const response = await getDashboardStats();
+
+      setStats({
+        totalMembers: response.data.totalMembers || 0,
+
+        totalVisitors: response.data.totalVisitors || 0,
+
+        totalEvents: response.data.totalEvents || 0,
+
+        totalAttendance: response.data.totalAttendance || 0,
+
+        recentEvents: response.data.recentEvents || [],
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AdminLayout>
-      <div className="welcome-section">
-        <h1>Good Afternoon, Mpho 👋</h1>
+      <div className="dashboard-container">
+        <div className="welcome-section">
+          <h1>
+            Welcome back, {user?.fullName}
+            👋
+          </h1>
 
-        <p>
-          Welcome back to ChurchConnect. Here's what's happening at your church
-          today.
-        </p>
-      </div>
-      <div className="stats">
-        <StatCard title="Total Members" value="256" color="#2563eb" />
-
-        <StatCard title="Attendance Today" value="184" color="#16a34a" />
-
-        <StatCard title="Visitors This Month" value="32" color="#f59e0b" />
-
-        <StatCard title="Upcoming Events" value="6" color="#9333ea" />
-      </div>
-
-      <div className="dashboard-content">
-        <div className="panel">
-          <h3>Recent Attendance</h3>
-
-          <p>Sunday Service Attendance: 184</p>
-
-          <p>Bible Study Attendance: 85</p>
+          <p>Here's a summary of your church management system.</p>
         </div>
 
-        <div className="panel">
-          <h3>Upcoming Events</h3>
+        <div className="stats-grid">
+          <div className="dashboard-card">
+            <FaUsers className="card-icon" />
 
-          <p>Youth Conference</p>
+            <div>
+              <h4>Total Members</h4>
 
-          <p>Prayer Night</p>
+              <h2>{stats.totalMembers}</h2>
+            </div>
+          </div>
 
-          <p>Community Outreach</p>
+          <div className="dashboard-card">
+            <FaUserFriends className="card-icon" />
+
+            <div>
+              <h4>Total Visitors</h4>
+
+              <h2>{stats.totalVisitors}</h2>
+            </div>
+          </div>
+
+          <div className="dashboard-card">
+            <FaCalendarAlt className="card-icon" />
+
+            <div>
+              <h4>Total Events</h4>
+
+              <h2>{stats.totalEvents}</h2>
+            </div>
+          </div>
+
+          <div className="dashboard-card">
+            <FaClipboardCheck className="card-icon" />
+
+            <div>
+              <h4>Attendance Records</h4>
+
+              <h2>{stats.totalAttendance}</h2>
+            </div>
+          </div>
         </div>
 
-        <div className="chart-panel">
-          <h3>Attendance Trend</h3>
-          <AttendanceChart />
+        <div className="dashboard-section">
+          <h2>Upcoming Events</h2>
+
+          {loading ? (
+            <p>Loading events...</p>
+          ) : (
+            <table className="member-table">
+              <thead>
+                <tr>
+                  <th>Event</th>
+                  <th>Venue</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {stats.recentEvents && stats.recentEvents.length > 0 ? (
+                  stats.recentEvents.map((event) => (
+                    <tr key={event.id}>
+                      <td>{event.title}</td>
+
+                      <td>{event.venue}</td>
+
+                      <td>{event.eventDate}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="3">No events found</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </AdminLayout>
   );
-};
+}
 
 export default Dashboard;
