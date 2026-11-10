@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+import { FaCamera } from "react-icons/fa";
+
 import AdminLayout from "../layouts/AdminLayout";
+
 import { getProfile, updateProfile } from "../services/userService";
 
 function Profile() {
@@ -26,7 +29,7 @@ function Profile() {
       setFormData(response.data);
     } catch (error) {
       console.error(error);
-      alert("Failed to load profile.");
+      alert("Failed to load profile");
     }
   };
 
@@ -61,12 +64,10 @@ function Profile() {
 
       const result = await response.json();
 
-      console.log("Cloudinary Response:", result);
+      console.log(result);
 
       if (!response.ok) {
         alert(result?.error?.message || "Image upload failed");
-
-        setLoading(false);
         return;
       }
 
@@ -79,7 +80,7 @@ function Profile() {
     } catch (error) {
       console.error(error);
 
-      alert("Something went wrong while uploading.");
+      alert("Failed to upload image");
     } finally {
       setLoading(false);
     }
@@ -99,7 +100,7 @@ function Profile() {
     } catch (error) {
       console.error(error);
 
-      alert("Failed to update profile.");
+      alert("Failed to update profile");
     }
   };
 
@@ -108,23 +109,35 @@ function Profile() {
       <div className="profile-container">
         <div className="profile-card">
           <div className="profile-header">
-            {formData.profileImage ? (
-              <img
-                src={formData.profileImage}
-                alt="Profile"
-                className="profile-avatar"
+            <div className="avatar-wrapper">
+              {formData.profileImage ? (
+                <img
+                  src={formData.profileImage}
+                  alt="Profile"
+                  className="profile-avatar"
+                />
+              ) : (
+                <div className="profile-avatar">
+                  {formData.fullName?.charAt(0)?.toUpperCase()}
+                </div>
+              )}
+
+              <label htmlFor="profileUpload" className="avatar-edit-btn">
+                <FaCamera />
+              </label>
+
+              <input
+                id="profileUpload"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                hidden
               />
-            ) : (
-              <div className="profile-avatar">
-                {formData.fullName?.charAt(0)?.toUpperCase()}
-              </div>
-            )}
+            </div>
 
             <h2>{formData.fullName || "User"}</h2>
 
             <p>{formData.role}</p>
-
-            <input type="file" accept="image/*" onChange={handleImageUpload} />
 
             {loading && <p>Uploading image...</p>}
           </div>
@@ -141,7 +154,7 @@ function Profile() {
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder="Email Address"
               value={formData.email}
               onChange={handleChange}
             />
