@@ -26,14 +26,15 @@ function Profile() {
       setFormData(response.data);
     } catch (error) {
       console.error(error);
+      alert("Failed to load profile.");
     }
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
   const handleImageUpload = async (e) => {
@@ -41,15 +42,15 @@ function Profile() {
 
     if (!file) return;
 
-    setLoading(true);
-
-    const data = new FormData();
-
-    data.append("file", file);
-
-    data.append("upload_preset", "churchconnect_profiles");
-
     try {
+      setLoading(true);
+
+      const data = new FormData();
+
+      data.append("file", file);
+
+      data.append("upload_preset", "chrchconnects_profile");
+
       const response = await fetch(
         "https://api.cloudinary.com/v1_1/dprywfeee/image/upload",
         {
@@ -60,15 +61,28 @@ function Profile() {
 
       const result = await response.json();
 
+      console.log("Cloudinary Response:", result);
+
+      if (!response.ok) {
+        alert(result?.error?.message || "Image upload failed");
+
+        setLoading(false);
+        return;
+      }
+
       setFormData((prev) => ({
         ...prev,
         profileImage: result.secure_url,
       }));
+
+      alert("Image uploaded successfully!");
     } catch (error) {
       console.error(error);
-    }
 
-    setLoading(false);
+      alert("Something went wrong while uploading.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -77,11 +91,15 @@ function Profile() {
     try {
       const response = await updateProfile(user.id, formData);
 
+      setFormData(response.data);
+
       localStorage.setItem("user", JSON.stringify(response.data));
 
-      alert("Profile updated successfully");
+      alert("Profile updated successfully!");
     } catch (error) {
       console.error(error);
+
+      alert("Failed to update profile.");
     }
   };
 
@@ -102,7 +120,7 @@ function Profile() {
               </div>
             )}
 
-            <h2>{formData.fullName}</h2>
+            <h2>{formData.fullName || "User"}</h2>
 
             <p>{formData.role}</p>
 
@@ -131,7 +149,7 @@ function Profile() {
             <input
               type="text"
               name="phone"
-              placeholder="Phone"
+              placeholder="Phone Number"
               value={formData.phone || ""}
               onChange={handleChange}
             />
