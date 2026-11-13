@@ -1,44 +1,44 @@
-import { FaBell } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { FaBars, FaBell } from "react-icons/fa";
 
-const Topbar = () => {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    navigate("/");
-  };
+function Topbar({ sidebarOpen, setSidebarOpen }) {
   const user = JSON.parse(localStorage.getItem("user"));
-
-  const userName = user?.fullName || "Guest";
-
-  const role = user?.role || "User";
 
   return (
     <div className="topbar">
-      <div className="topbar-title">ChurchConnect</div>
+      <div className="topbar-left">
+        <button
+          className="menu-btn"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        >
+          <FaBars />
+        </button>
+      </div>
 
       <div className="topbar-right">
-        <button className="notification-btn">
+        <div className="notification-icon">
           <FaBell />
-        </button>
 
-        {user?.profileImage ? (
-          <img src={user.profileImage} alt="Profile" className="avatar-img" />
-        ) : (
-          <div className="avatar">
-            {user?.fullName?.charAt(0)?.toUpperCase()}
+          <span className="notification-badge">3</span>
+        </div>
+
+        <div className="user-profile">
+          {user?.profileImage ? (
+            <img src={user.profileImage} alt="Profile" className="avatar-img" />
+          ) : (
+            <div className="avatar">
+              {user?.fullName?.charAt(0)?.toUpperCase()}
+            </div>
+          )}
+
+          <div className="user-info">
+            <span className="user-name">{user?.fullName}</span>
+
+            <span className="user-role">{user?.role}</span>
           </div>
-        )}
-
-        <button className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default Topbar;

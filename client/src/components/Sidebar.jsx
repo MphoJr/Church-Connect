@@ -20,14 +20,8 @@ function Sidebar({ sidebarOpen }) {
   const isPastor = user?.role === "Pastor";
 
   return (
-    <aside
-      className={`sidebar ${
-        sidebarOpen ? "sidebar-open" : "sidebar-collapsed"
-      }`}
-    >
-      <div className="sidebar-logo">
-        {sidebarOpen ? <h2>ChurchConnect</h2> : <h2>CC</h2>}
-      </div>
+    <aside className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
+      <div className="sidebar-logo">{sidebarOpen ? "ChurchConnect" : "CC"}</div>
 
       <nav className="sidebar-nav">
         <NavLink to="/dashboard">
@@ -84,11 +78,6 @@ function Sidebar({ sidebarOpen }) {
             <NavLink to="/pastor/reminders">
               <FaBell />
               {sidebarOpen && <span>Reminders</span>}
-            </NavLink>
-
-            <NavLink to="/reports">
-              <FaChartBar />
-              {sidebarOpen && <span>Reports</span>}
             </NavLink>
           </>
         )}
