@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import PastorLayout from "../../layouts/PastorLayout";
+import PastorLayout from "../../layouts/AdminLayout";
 
 import {
   getPastorAppointments,
@@ -60,7 +60,7 @@ function Appointments() {
   };
 
   return (
-    <PastorLayout>
+    <AdminLayout>
       <div className="appointments-container">
         <h1>My Appointments</h1>
 
@@ -124,7 +124,7 @@ function Appointments() {
           </table>
         )}
       </div>
-    </PastorLayout>
+    </AdminLayout>
   );
 }
 
