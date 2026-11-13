@@ -10,12 +10,14 @@ import Visitors from "../pages/admin/Visitors";
 import Events from "../pages/admin/Events";
 import Reports from "../pages/admin/Reports";
 import Profile from "../pages/admin/Profile";
+import BookAppointment from "../pages/admin/BookAppointment";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 
 function AppRoutes() {
   return (
     <Routes>
+      <Route path="/book-appointment" element={<BookAppointment />} />
       {/* Public Routes */}
       <Route path="/" element={<Login />} />
 

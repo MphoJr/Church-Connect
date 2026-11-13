@@ -37,6 +37,10 @@ const userRoutes = require("./src/routes/userRoutes");
 
 app.use("/api/users", userRoutes);
 
+const appointmentRoutes = require("./src/routes/appointmentRoutes");
+
+app.use("/api/appointments", appointmentRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
