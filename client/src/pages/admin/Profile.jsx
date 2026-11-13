@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 
-import { getProfile, updateProfile } from "../services/userService";
+import { getProfile, updateProfile } from "../../services/userService";
 
 function Profile() {
   const user = JSON.parse(localStorage.getItem("user"));

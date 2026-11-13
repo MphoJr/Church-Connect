@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 
 function Visitors() {
   const [visitors, setVisitors] = useState([]);

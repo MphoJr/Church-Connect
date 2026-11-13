@@ -7,9 +7,9 @@ import {
   FaClipboardCheck,
 } from "react-icons/fa";
 
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 
-import { getDashboardStats } from "../services/dashboardService";
+import { getDashboardStats } from "../../services/dashboardService";
 
 function Dashboard() {
   const user = JSON.parse(localStorage.getItem("user"));

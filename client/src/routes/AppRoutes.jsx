@@ -1,15 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+import Login from "../pages/admin/Login";
+import Register from "../pages/admin/Register";
 
-import Dashboard from "../pages/Dashboard";
-import Members from "../pages/Members";
-import Attendance from "../pages/Attendance";
-import Visitors from "../pages/Visitors";
-import Events from "../pages/Events";
-import Reports from "../pages/Reports";
-import Profile from "../pages/Profile";
+import Dashboard from "../pages/admin/Dashboard";
+import Members from "../pages/admin/Members";
+import Attendance from "../pages/admin/Attendance";
+import Visitors from "../pages/admin/Visitors";
+import Events from "../pages/admin/Events";
+import Reports from "../pages/admin/Reports";
+import Profile from "../pages/admin/Profile";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 

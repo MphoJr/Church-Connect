@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 
 import {
   getEvents,
   createEvent,
   updateEvent,
   deleteEvent,
-} from "../services/eventService";
+} from "../../services/eventService";
 
 function Events() {
   const [events, setEvents] = useState([]);

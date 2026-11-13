@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 
-import { getMembers } from "../services/memberService";
-import { saveAttendance } from "../services/attendanceService";
+import { getMembers } from "../../services/memberService";
+import { saveAttendance } from "../../services/attendanceService";
 
 function Attendance() {
   const [members, setMembers] = useState([]);

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 
 import {
   getMembers,
   createMember,
   deleteMember,
   updateMember,
-} from "../services/memberService";
+} from "../../services/memberService";
 
 function Members() {
   const [members, setMembers] = useState([]);

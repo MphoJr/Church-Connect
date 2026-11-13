@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 
 import {
   Chart as ChartJS,
@@ -13,7 +13,7 @@ import {
 
 import { Bar } from "react-chartjs-2";
 
-import { getStats, getAttendanceReport } from "../services/reportService";
+import { getStats, getAttendanceReport } from "../../services/reportService";
 
 ChartJS.register(
   CategoryScale,

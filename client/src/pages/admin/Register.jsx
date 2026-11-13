@@ -1,5 +1,5 @@
 // src/pages/Register.jsx
-import { registerUser } from "../services/authService";
+import { registerUser } from "../../services/authService";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
