@@ -1010,3 +1010,179 @@
   color: white;
   cursor: pointer;
 }
+
+.appointments-container {
+  padding: 20px;
+}
+
+.appointments-container h1 {
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+.member-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.member-table th {
+  background: #2563eb;
+  color: white;
+  padding: 14px;
+  text-align: left;
+}
+
+.member-table td {
+  padding: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.member-table tr:hover {
+  background: #f8fafc;
+}
+
+.status-pending {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.status-approved {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.status-completed {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.status-declined {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.action-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  margin-right: 8px;
+}
+
+.approve-btn {
+  background: #16a34a;
+}
+
+.approve-btn:hover {
+  background: #15803d;
+}
+
+.decline-btn {
+  background: #dc2626;
+}
+
+.decline-btn:hover {
+  background: #b91c1c;
+}
+
+.complete-btn {
+  background: #2563eb;
+}
+
+.complete-btn:hover {
+  background: #1d4ed8;
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: #1e293b;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar-header {
+  margin-bottom: 30px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-nav a {
+  color: white;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  background: #2563eb;
+}
+
+.logout-btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #dc2626;
+  color: white;
+  cursor: pointer;
+}
+
+.main-content {
+  flex: 1;
+  background: #f8fafc;
+}
+
+.topbar {
+  background: white;
+  padding: 15px 25px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-content {
+  padding: 20px;
+}
+
+.avatar-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+}

@@ -69,7 +69,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               {sidebarOpen && <span>Reports</span>}
             </NavLink>
           </li>
-
+          <NavLink to="/appointments">Appointments</NavLink>
           <li>
             <NavLink to="/profile">
               <FaUserCircle />

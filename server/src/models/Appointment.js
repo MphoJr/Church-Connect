@@ -40,7 +40,12 @@ const Appointment = sequelize.define("Appointment", {
     defaultValue: "Pending",
   },
 
-  assignedPastor: {
+  assignedPastorId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+
+  assignedPastorName: {
     type: DataTypes.STRING,
     allowNull: true,
   },

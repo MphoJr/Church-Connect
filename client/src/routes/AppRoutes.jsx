@@ -10,7 +10,9 @@ import Visitors from "../pages/admin/Visitors";
 import Events from "../pages/admin/Events";
 import Reports from "../pages/admin/Reports";
 import Profile from "../pages/admin/Profile";
-import BookAppointment from "../pages/admin/BookAppointment";
+import BookAppointment from "../pages/public/BookAppointment";
+import Appointments from "../pages/admin/Appointments";
+import PastorAppointments from "../pages/pastor/Appointments";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 
@@ -83,6 +85,22 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/appointments"
+        element={
+          <ProtectedRoute>
+            <Appointments />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/pastor/appointments"
+        element={
+          <ProtectedRoute>
+            <PastorAppointments />
           </ProtectedRoute>
         }
       />
