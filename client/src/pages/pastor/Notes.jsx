@@ -1,20 +1,28 @@
 import { useEffect, useState } from "react";
 import AdminLayout from "../../layouts/AdminLayout";
 
-import { createNote, getNotes, deleteNote } from "../../services/noteService";
+import {
+  createNote,
+  getNotes,
+  updateNote,
+  deleteNote,
+} from "../../services/noteService";
 
 function Notes() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [editingId, setEditingId] = useState(null);
 
   const [formData, setFormData] = useState({
     title: "",
     category: "General",
     content: "",
   });
-
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadNotes();
@@ -43,10 +51,16 @@ function Notes() {
     try {
       setLoading(true);
 
-      await createNote({
-        ...formData,
-        userId: user.id,
-      });
+      if (editingId) {
+        await updateNote(editingId, formData);
+
+        setEditingId(null);
+      } else {
+        await createNote({
+          ...formData,
+          userId: user.id,
+        });
+      }
 
       setFormData({
         title: "",
@@ -56,14 +70,31 @@ function Notes() {
 
       loadNotes();
     } catch (error) {
-      console.error("Failed to create note:", error);
+      console.error("Failed saving note:", error);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleEdit = (note) => {
+    setEditingId(note.id);
+
+    setFormData({
+      title: note.title,
+      category: note.category,
+      content: note.content,
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const handleDelete = async (id) => {
-    const confirmed = window.confirm("Delete this note?");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this note?",
+    );
 
     if (!confirmed) return;
 
@@ -72,9 +103,29 @@ function Notes() {
 
       loadNotes();
     } catch (error) {
-      console.error("Failed to delete note:", error);
+      console.error("Failed deleting note:", error);
     }
   };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+
+    setFormData({
+      title: "",
+      category: "General",
+      content: "",
+    });
+  };
+
+  const filteredNotes = notes.filter((note) => {
+    const search = searchTerm.toLowerCase();
+
+    return (
+      note.title?.toLowerCase().includes(search) ||
+      note.category?.toLowerCase().includes(search) ||
+      note.content?.toLowerCase().includes(search)
+    );
+  });
 
   return (
     <AdminLayout>
@@ -110,37 +161,74 @@ function Notes() {
           <textarea
             name="content"
             rows="6"
-            placeholder="Write your ministry notes here..."
+            placeholder="Write your notes here..."
             value={formData.content}
             onChange={handleChange}
             required
           />
 
-          <button type="submit">{loading ? "Saving..." : "Save Note"}</button>
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+            }}
+          >
+            <button type="submit">
+              {loading ? "Saving..." : editingId ? "Update Note" : "Save Note"}
+            </button>
+
+            {editingId && (
+              <button type="button" onClick={cancelEdit}>
+                Cancel
+              </button>
+            )}
+          </div>
         </form>
 
-        <div className="notes-grid">
-          {notes.length === 0 ? (
-            <div className="empty-notes">
-              <h3>No Notes Yet</h3>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search notes..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
 
-              <p>Start creating sermon, counselling or leadership notes.</p>
+        <div className="notes-grid">
+          {filteredNotes.length === 0 ? (
+            <div className="empty-notes">
+              <h3>No Notes Found</h3>
+
+              <p>Create a new note or adjust your search.</p>
             </div>
           ) : (
-            notes.map((note) => (
+            filteredNotes.map((note) => (
               <div key={note.id} className="note-card">
                 <span className="note-category">{note.category}</span>
 
                 <h3>{note.title}</h3>
 
+                <small>{new Date(note.createdAt).toLocaleDateString()}</small>
+
                 <p>{note.content}</p>
 
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDelete(note.id)}
-                >
-                  Delete Note
-                </button>
+                <div>
+                  <div className="note-actions">
+                    <button
+                      className="edit-btn"
+                      onClick={() => handleEdit(note)}
+                    >
+                      ✏️ Edit
+                    </button>
+
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(note.id)}
+                    >
+                      🗑 Delete
+                    </button>
+                  </div>
+                </div>
               </div>
             ))
           )}

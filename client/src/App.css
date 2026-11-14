@@ -1548,10 +1548,6 @@
   background: #15803d;
 }
 
-/* ==========================
-   COMPLETED REMINDER
-========================== */
-
 .reminder-card.completed {
   border-left: 5px solid #16a34a;
 
@@ -1643,21 +1639,26 @@
   gap: 20px;
 }
 
-.note-card p {
-  color: #64748b;
+.note-card {
+  background: white;
 
-  line-height: 1.6;
+  border-radius: 14px;
 
-  white-space: pre-wrap;
+  padding: 20px;
 
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  transition: all 0.3s ease;
 }
 
-/* =================================
-   DELETE BUTTON
-================================= */
+.note-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
 
 .delete-btn {
   margin-top: 20px;
@@ -1681,10 +1682,6 @@
   background: #b91c1c;
 }
 
-/* =================================
-   EMPTY STATE
-================================= */
-
 .empty-notes {
   background: white;
 
@@ -1705,4 +1702,125 @@
 
 .empty-notes p {
   color: #64748b;
+}
+.edit-btn {
+  background: #2563eb;
+
+  color: white;
+
+  border: none;
+
+  padding: 10px 15px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  margin-right: 10px;
+}
+
+.edit-btn:hover {
+  background: #1d4ed8;
+}
+.search-container {
+  margin: 25px 0;
+}
+
+.search-container input {
+  width: 100%;
+
+  padding: 14px 18px;
+
+  border: 1px solid #dbe3ea;
+  border-radius: 12px;
+
+  background: #fff;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: all 0.3s ease;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.search-container input:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 4px rgba(37, 99, 235, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.search-container input::placeholder {
+  color: #94a3b8;
+}
+
+.note-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.note-actions button {
+  height: 45px; /* Same height */
+  min-height: 45px; /* Prevent shrinking */
+
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+.edit-btn,
+.delete-btn {
+  width: 100px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+
+  cursor: pointer;
+
+  padding: 0;
+
+  transition: all 0.3s ease;
+}
+
+.edit-btn {
+  background: #2563eb;
+  color: white;
+  margin-top: 21px;
+}
+
+.edit-btn:hover {
+  background: #1d4ed8;
+}
+
+.delete-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
 }
