@@ -40,6 +40,9 @@ app.use("/api/users", userRoutes);
 const appointmentRoutes = require("./src/routes/appointmentRoutes");
 
 app.use("/api/appointments", appointmentRoutes);
+const reminderRoutes = require("./src/routes/reminderRoutes");
+
+app.use("/api/reminders", reminderRoutes);
 
 const PORT = process.env.PORT || 5000;
 
