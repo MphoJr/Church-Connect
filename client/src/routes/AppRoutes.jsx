@@ -16,6 +16,7 @@ import PastorAppointments from "../pages/pastor/Appointments";
 import PastorCalendar from "../pages/pastor/Calendar";
 import Reminders from "../pages/pastor/Reminders";
 import PastorDashboard from "../pages/pastor/PastorDashboard";
+import Notes from "../pages/pastor/Notes";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 function AppRoutes() {
@@ -127,6 +128,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <PastorDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/pastor/notes"
+        element={
+          <ProtectedRoute>
+            <Notes />
           </ProtectedRoute>
         }
       />

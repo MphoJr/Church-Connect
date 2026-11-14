@@ -44,6 +44,10 @@ const reminderRoutes = require("./src/routes/reminderRoutes");
 
 app.use("/api/reminders", reminderRoutes);
 
+const noteRoutes = require("./src/routes/noteRoutes");
+
+app.use("/api/notes", noteRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

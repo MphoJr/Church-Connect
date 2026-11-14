@@ -10,6 +10,7 @@ import {
   FaUserCircle,
   FaCalendarCheck,
   FaBell,
+  FaStickyNote,
 } from "react-icons/fa";
 
 function Sidebar({ sidebarOpen }) {
@@ -78,6 +79,11 @@ function Sidebar({ sidebarOpen }) {
             <NavLink to="/reports">
               <FaChartBar />
               {sidebarOpen && <span>Reports</span>}
+            </NavLink>
+
+            <NavLink to="/pastor/notes">
+              <FaStickyNote />
+              {sidebarOpen && <span>Notes</span>}
             </NavLink>
           </>
         )}
