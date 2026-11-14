@@ -23,15 +23,21 @@ function Login() {
     try {
       const response = await loginUser(formData);
 
+      const user = response.data.user;
+
       localStorage.setItem("token", response.data.token);
 
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("user", JSON.stringify(user));
 
-      navigate("/dashboard");
+      if (user.role === "Pastor") {
+        navigate("/pastor/dashboard");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error(error);
 
-      alert(error.response?.data?.message || "Login failed");
+      alert("Login failed.");
     }
   };
 

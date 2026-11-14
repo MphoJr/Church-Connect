@@ -24,7 +24,7 @@ function Sidebar({ sidebarOpen }) {
       <div className="sidebar-logo">{sidebarOpen ? "ChurchConnect" : "CC"}</div>
 
       <nav className="sidebar-nav">
-        <NavLink to="/dashboard">
+        <NavLink to={isPastor ? "/pastor/dashboard" : "/dashboard"}>
           <FaHome />
           {sidebarOpen && <span>Dashboard</span>}
         </NavLink>
@@ -51,14 +51,14 @@ function Sidebar({ sidebarOpen }) {
               {sidebarOpen && <span>Events</span>}
             </NavLink>
 
-            <NavLink to="/reports">
-              <FaChartBar />
-              {sidebarOpen && <span>Reports</span>}
-            </NavLink>
-
             <NavLink to="/appointments">
               <FaCalendarCheck />
               {sidebarOpen && <span>Appointments</span>}
+            </NavLink>
+
+            <NavLink to="/reports">
+              <FaChartBar />
+              {sidebarOpen && <span>Reports</span>}
             </NavLink>
           </>
         )}
@@ -70,14 +70,14 @@ function Sidebar({ sidebarOpen }) {
               {sidebarOpen && <span>Appointments</span>}
             </NavLink>
 
-            <NavLink to="/pastor/calendar">
-              <FaCalendarAlt />
-              {sidebarOpen && <span>Calendar</span>}
-            </NavLink>
-
             <NavLink to="/pastor/reminders">
               <FaBell />
               {sidebarOpen && <span>Reminders</span>}
+            </NavLink>
+
+            <NavLink to="/reports">
+              <FaChartBar />
+              {sidebarOpen && <span>Reports</span>}
             </NavLink>
           </>
         )}
