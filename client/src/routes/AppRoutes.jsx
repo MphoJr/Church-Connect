@@ -13,7 +13,7 @@ import Profile from "../pages/admin/Profile";
 import BookAppointment from "../pages/public/BookAppointment";
 import Appointments from "../pages/admin/Appointments";
 import PastorAppointments from "../pages/pastor/Appointments";
-
+import PastorCalendar from "../pages/pastor/Calendar";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 function AppRoutes() {
@@ -101,6 +101,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <PastorAppointments />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/pastor/calendar"
+        element={
+          <ProtectedRoute>
+            <PastorCalendar />
           </ProtectedRoute>
         }
       />

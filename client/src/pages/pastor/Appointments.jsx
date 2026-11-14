@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import PastorLayout from "../../layouts/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
 
 import {
   getPastorAppointments,
