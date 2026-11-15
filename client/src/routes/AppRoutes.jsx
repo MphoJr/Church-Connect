@@ -19,6 +19,7 @@ import PastorDashboard from "../pages/pastor/PastorDashboard";
 import Notes from "../pages/pastor/Notes";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Announcements from "../pages/shared/Announcements";
+import PublicAnnouncements from "../pages/public/Announcements";
 
 function AppRoutes() {
   return (
@@ -28,6 +29,7 @@ function AppRoutes() {
       <Route path="/" element={<Login />} />
 
       <Route path="/register" element={<Register />} />
+      <Route path="/public-announcements" element={<PublicAnnouncements />} />
 
       {/* Protected Routes */}
       <Route
