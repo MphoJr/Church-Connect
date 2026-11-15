@@ -11,6 +11,7 @@ import {
   FaCalendarCheck,
   FaBell,
   FaStickyNote,
+  FaBullhorn,
 } from "react-icons/fa";
 
 function Sidebar({ sidebarOpen }) {
@@ -87,7 +88,10 @@ function Sidebar({ sidebarOpen }) {
             </NavLink>
           </>
         )}
-
+        <NavLink to="/announcements">
+          <FaBullhorn />
+          {sidebarOpen && <span>Announcements</span>}
+        </NavLink>
         <NavLink to="/profile">
           <FaUserCircle />
           {sidebarOpen && <span>My Profile</span>}

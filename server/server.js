@@ -48,6 +48,9 @@ app.use("/api/notes", noteRoutes);
 const notificationRoutes = require("./src/routes/notificationRoutes");
 app.use("/api/notifications", notificationRoutes);
 
+const announcementRoutes = require("./src/routes/announcementRoutes");
+app.use("/api/announcements", announcementRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

@@ -18,6 +18,7 @@ import Reminders from "../pages/pastor/Reminders";
 import PastorDashboard from "../pages/pastor/PastorDashboard";
 import Notes from "../pages/pastor/Notes";
 import ProtectedRoute from "../components/ProtectedRoute";
+import Announcements from "../pages/shared/Announcements";
 
 function AppRoutes() {
   return (
@@ -136,6 +137,15 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Notes />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/announcements"
+        element={
+          <ProtectedRoute>
+            <Announcements />
           </ProtectedRoute>
         }
       />
