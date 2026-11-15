@@ -1454,9 +1454,6 @@
 
   font-weight: bold;
 }
-/* ==========================
-   REMINDERS PAGE
-========================== */
 
 .reminders-page {
   padding: 20px;
@@ -1466,10 +1463,6 @@
   margin-bottom: 20px;
   color: #1e293b;
 }
-
-/* ==========================
-   FORM
-========================== */
 
 .reminder-form {
   background: white;
@@ -1524,10 +1517,6 @@
   background: #1d4ed8;
 }
 
-/* ==========================
-   REMINDER GRID
-========================== */
-
 .reminder-list {
   display: grid;
 
@@ -1535,10 +1524,6 @@
 
   gap: 20px;
 }
-
-/* ==========================
-   REMINDER CARD
-========================== */
 
 .reminder-card {
   background: white;
