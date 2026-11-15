@@ -1915,3 +1915,76 @@ notes-grid {
 
   cursor: pointer;
 }
+
+.notification-wrapper {
+  position: relative;
+}
+
+.notification-dropdown {
+  position: absolute;
+
+  top: 55px;
+  right: 0;
+
+  width: 350px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+  padding: 15px;
+
+  z-index: 999;
+}
+
+.notification-dropdown h4 {
+  margin-bottom: 15px;
+
+  color: #1e293b;
+}
+
+.notification-item {
+  padding: 12px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item h5 {
+  margin-bottom: 5px;
+}
+
+.notification-item p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.notification-item.unread {
+  background: #eff6ff;
+
+  border-radius: 8px;
+}
+
+.read-btn {
+  margin-top: 10px;
+
+  background: #2563eb;
+  color: white;
+
+  border: none;
+
+  padding: 8px 12px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+.read-btn:hover {
+  background: #1d4ed8;
+}
