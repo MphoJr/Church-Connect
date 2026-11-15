@@ -34,19 +34,19 @@ const reportRoutes = require("./src/routes/reportRoutes");
 app.use("/api/reports", reportRoutes);
 
 const userRoutes = require("./src/routes/userRoutes");
-
 app.use("/api/users", userRoutes);
 
 const appointmentRoutes = require("./src/routes/appointmentRoutes");
-
 app.use("/api/appointments", appointmentRoutes);
-const reminderRoutes = require("./src/routes/reminderRoutes");
 
+const reminderRoutes = require("./src/routes/reminderRoutes");
 app.use("/api/reminders", reminderRoutes);
 
 const noteRoutes = require("./src/routes/noteRoutes");
-
 app.use("/api/notes", noteRoutes);
+
+const notificationRoutes = require("./src/routes/notificationRoutes");
+app.use("/api/notifications", notificationRoutes);
 
 const PORT = process.env.PORT || 5000;
 

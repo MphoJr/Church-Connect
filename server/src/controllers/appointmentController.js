@@ -1,6 +1,8 @@
 const Appointment = require("../models/Appointment");
 const User = require("../models/User");
+const Notification = require("../models/Notification");
 
+// Create Appointment
 exports.createAppointment = async (req, res) => {
   try {
     const appointment = await Appointment.create(req.body);
@@ -15,6 +17,7 @@ exports.createAppointment = async (req, res) => {
   }
 };
 
+// Get All Appointments
 exports.getAppointments = async (req, res) => {
   try {
     const appointments = await Appointment.findAll({
@@ -31,6 +34,7 @@ exports.getAppointments = async (req, res) => {
   }
 };
 
+// Update Appointment Status
 exports.updateAppointmentStatus = async (req, res) => {
   try {
     const appointment = await Appointment.findByPk(req.params.id);
@@ -54,6 +58,8 @@ exports.updateAppointmentStatus = async (req, res) => {
     });
   }
 };
+
+// Assign Pastor
 exports.assignPastor = async (req, res) => {
   try {
     const appointment = await Appointment.findByPk(req.params.id);
@@ -78,6 +84,15 @@ exports.assignPastor = async (req, res) => {
       status: "Approved",
     });
 
+    // Create Notification
+    await Notification.create({
+      title: "New Appointment Assigned",
+
+      message: `${appointment.fullName} - ${appointment.meetingType}`,
+
+      userId: pastor.id,
+    });
+
     res.json(appointment);
   } catch (error) {
     console.error(error);
@@ -87,16 +102,24 @@ exports.assignPastor = async (req, res) => {
     });
   }
 };
+
+// Get Pastor Appointments
 exports.getPastorAppointments = async (req, res) => {
   try {
     const appointments = await Appointment.findAll({
       where: {
         assignedPastorId: req.params.id,
       },
+
+      order: [["preferredDate", "ASC"]],
     });
 
     res.json(appointments);
   } catch (error) {
     console.error(error);
+
+    res.status(500).json({
+      message: "Failed to fetch pastor appointments",
+    });
   }
 };
