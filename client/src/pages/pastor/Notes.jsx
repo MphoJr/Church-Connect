@@ -12,11 +12,11 @@ function Notes() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [notes, setNotes] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedNote, setSelectedNote] = useState(null);
 
   const [editingId, setEditingId] = useState(null);
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [formData, setFormData] = useState({
     title: "",
@@ -34,23 +34,21 @@ function Notes() {
 
       setNotes(response.data);
     } catch (error) {
-      console.error("Failed to load notes:", error);
+      console.error(error);
     }
   };
 
   const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
+    setFormData({
+      ...formData,
       [e.target.name]: e.target.value,
-    }));
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      setLoading(true);
-
       if (editingId) {
         await updateNote(editingId, formData);
 
@@ -70,9 +68,7 @@ function Notes() {
 
       loadNotes();
     } catch (error) {
-      console.error("Failed saving note:", error);
-    } finally {
-      setLoading(false);
+      console.error(error);
     }
   };
 
@@ -92,9 +88,7 @@ function Notes() {
   };
 
   const handleDelete = async (id) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this note?",
-    );
+    const confirmed = window.confirm("Delete this note?");
 
     if (!confirmed) return;
 
@@ -103,27 +97,17 @@ function Notes() {
 
       loadNotes();
     } catch (error) {
-      console.error("Failed deleting note:", error);
+      console.error(error);
     }
   };
 
-  const cancelEdit = () => {
-    setEditingId(null);
-
-    setFormData({
-      title: "",
-      category: "General",
-      content: "",
-    });
-  };
-
   const filteredNotes = notes.filter((note) => {
-    const search = searchTerm.toLowerCase();
+    const term = searchTerm.toLowerCase();
 
     return (
-      note.title?.toLowerCase().includes(search) ||
-      note.category?.toLowerCase().includes(search) ||
-      note.content?.toLowerCase().includes(search)
+      note.title.toLowerCase().includes(term) ||
+      note.category.toLowerCase().includes(term) ||
+      note.content.toLowerCase().includes(term)
     );
   });
 
@@ -161,28 +145,15 @@ function Notes() {
           <textarea
             name="content"
             rows="6"
-            placeholder="Write your notes here..."
+            placeholder="Write your notes..."
             value={formData.content}
             onChange={handleChange}
             required
           />
 
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-            }}
-          >
-            <button type="submit">
-              {loading ? "Saving..." : editingId ? "Update Note" : "Save Note"}
-            </button>
-
-            {editingId && (
-              <button type="button" onClick={cancelEdit}>
-                Cancel
-              </button>
-            )}
-          </div>
+          <button type="submit">
+            {editingId ? "Update Note" : "Save Note"}
+          </button>
         </form>
 
         <div className="search-container">
@@ -199,40 +170,80 @@ function Notes() {
             <div className="empty-notes">
               <h3>No Notes Found</h3>
 
-              <p>Create a new note or adjust your search.</p>
+              <p>Create your first note.</p>
             </div>
           ) : (
             filteredNotes.map((note) => (
-              <div key={note.id} className="note-card">
+              <div
+                key={note.id}
+                className="note-card"
+                onClick={() => setSelectedNote(note)}
+              >
                 <span className="note-category">{note.category}</span>
 
                 <h3>{note.title}</h3>
 
                 <small>{new Date(note.createdAt).toLocaleDateString()}</small>
 
-                <p>{note.content}</p>
+                <p className="note-content">
+                  {note.content.length > 150
+                    ? `${note.content.substring(0, 150)}...`
+                    : note.content}
+                </p>
 
-                <div>
-                  <div className="note-actions">
-                    <button
-                      className="edit-btn"
-                      onClick={() => handleEdit(note)}
-                    >
-                      ✏️ Edit
-                    </button>
+                <div className="note-actions">
+                  <button
+                    className="edit-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
 
-                    <button
-                      className="delete-btn"
-                      onClick={() => handleDelete(note.id)}
-                    >
-                      🗑 Delete
-                    </button>
-                  </div>
+                      handleEdit(note);
+                    }}
+                  >
+                    ✏️ Edit
+                  </button>
+
+                  <button
+                    className="delete-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+
+                      handleDelete(note.id);
+                    }}
+                  >
+                    🗑 Delete
+                  </button>
                 </div>
               </div>
             ))
           )}
         </div>
+
+        {selectedNote && (
+          <div
+            className="note-modal-overlay"
+            onClick={() => setSelectedNote(null)}
+          >
+            <div className="note-modal" onClick={(e) => e.stopPropagation()}>
+              <span className="note-category">{selectedNote.category}</span>
+
+              <h2>{selectedNote.title}</h2>
+
+              <small>
+                {new Date(selectedNote.createdAt).toLocaleDateString()}
+              </small>
+
+              <div className="modal-content">{selectedNote.content}</div>
+
+              <button
+                className="close-btn"
+                onClick={() => setSelectedNote(null)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </AdminLayout>
   );
