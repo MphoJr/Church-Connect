@@ -12,6 +12,7 @@ import {
   FaBell,
   FaStickyNote,
   FaBullhorn,
+  FaSignOutAlt,
 } from "react-icons/fa";
 
 function Sidebar({ sidebarOpen }) {
@@ -20,6 +21,13 @@ function Sidebar({ sidebarOpen }) {
   const isAdmin = user?.role === "Admin";
 
   const isPastor = user?.role === "Pastor";
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    window.location.href = "/";
+  };
 
   return (
     <aside className={`sidebar ${sidebarOpen ? "open" : "closed"}`}>
@@ -97,6 +105,10 @@ function Sidebar({ sidebarOpen }) {
           {sidebarOpen && <span>My Profile</span>}
         </NavLink>
       </nav>
+      <button className="logout-btn" onClick={handleLogout}>
+        <FaSignOutAlt />
+        {sidebarOpen && <span>Logout</span>}
+      </button>
     </aside>
   );
 }
