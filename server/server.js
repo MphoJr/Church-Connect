@@ -51,6 +51,9 @@ app.use("/api/notifications", notificationRoutes);
 const announcementRoutes = require("./src/routes/announcementRoutes");
 app.use("/api/announcements", announcementRoutes);
 
+const prayerRequestRoutes = require("./src/routes/prayerRequestRoutes");
+app.use("/api/prayer-requests", prayerRequestRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

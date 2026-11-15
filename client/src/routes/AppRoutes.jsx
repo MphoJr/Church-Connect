@@ -20,6 +20,7 @@ import Notes from "../pages/pastor/Notes";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Announcements from "../pages/shared/Announcements";
 import PublicAnnouncements from "../pages/public/Announcements";
+import PrayerRequests from "../pages/pastor/PrayerRequests";
 
 function AppRoutes() {
   return (
@@ -148,6 +149,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Announcements />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/pastor/prayer-requests"
+        element={
+          <ProtectedRoute>
+            <PrayerRequests />
           </ProtectedRoute>
         }
       />

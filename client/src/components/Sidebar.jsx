@@ -13,6 +13,7 @@ import {
   FaStickyNote,
   FaBullhorn,
   FaSignOutAlt,
+  FaPrayingHands,
 } from "react-icons/fa";
 
 function Sidebar({ sidebarOpen }) {
@@ -93,6 +94,10 @@ function Sidebar({ sidebarOpen }) {
             <NavLink to="/pastor/notes">
               <FaStickyNote />
               {sidebarOpen && <span>Notes</span>}
+            </NavLink>
+            <NavLink to="/pastor/prayer-requests">
+              <FaPrayingHands />
+              {sidebarOpen && <span>Prayer Requests</span>}
             </NavLink>
           </>
         )}
